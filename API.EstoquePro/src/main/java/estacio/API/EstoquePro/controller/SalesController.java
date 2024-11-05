@@ -4,22 +4,37 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import estacio.API.EstoquePro.DAO.VendasDAO;
 import estacio.API.EstoquePro.models.Sales;
 import estacio.API.EstoquePro.models.Stock;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
+//@PreAuthorize("hasRole('Almoxarifado')")
+@SecurityRequirement(name = "bearerAuth")
+@RequestMapping("/venda")
 public class SalesController {
 	
-    @PostMapping("/venda/registrarVenda")
+	
+    @Operation(summary = "Registra uma nova venda e atualiza o estoque")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Venda registrada com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos")
+    })
+    @PostMapping("/registrarVenda")
     public ResponseEntity<String> registrarVenda(@RequestBody Sales sale) {
         try {
             boolean isRegistered = new VendasDAO().registrarVenda(sale);
@@ -35,13 +50,15 @@ public class SalesController {
         }
     }
 
-    @GetMapping("/venda/listarVenda")
+    @Operation(summary = "Lista todas as vendas")
+    @GetMapping("/listarVenda")
     public ResponseEntity<List<Sales>> listarTodasVendas() {
         List<Sales> salesList = new VendasDAO().listarVendas();
         return ResponseEntity.ok(salesList);
     }
 
-    @GetMapping("/venda/{employeeId}")
+    @Operation(summary = "Lista vendas por funcionário")
+    @GetMapping("/{employeeId}")
     public ResponseEntity<List<Sales>> listarVendasPorFuncionario(@PathVariable int employeeId) {
         List<Sales> salesList = new VendasDAO().listarVendaPorFuncionario(employeeId);
         return ResponseEntity.ok(salesList);
