@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.controller;
+package EstoquePro.controller;
 
 
 import java.util.HashMap;
@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import estacio.API.EstoquePro.DAO.*;
-import estacio.API.EstoquePro.DTO.ClientLoginInputModel;
-import estacio.API.EstoquePro.Utils.JwtUtil;
-import estacio.API.EstoquePro.models.*;
+import EstoquePro.DAO.*;
+import EstoquePro.DTO.ClientLoginInputModel;
+import EstoquePro.Utils.JwtUtil;
+import EstoquePro.models.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

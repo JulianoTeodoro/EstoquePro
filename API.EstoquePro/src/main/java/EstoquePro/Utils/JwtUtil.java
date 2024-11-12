@@ -1,5 +1,4 @@
-package estacio.API.EstoquePro.Utils;
-
+package EstoquePro.Utils;
 import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;

@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.controller;
+package EstoquePro.controller;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,16 +14,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import estacio.API.EstoquePro.DAO.VendasDAO;
-import estacio.API.EstoquePro.models.Sales;
-import estacio.API.EstoquePro.models.Stock;
+import EstoquePro.DAO.VendasDAO;
+import EstoquePro.DTO.SalesViewModel;
+import EstoquePro.models.Sales;
+import EstoquePro.models.Stock;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
-//@PreAuthorize("hasRole('Almoxarifado')")
+@PreAuthorize("hasRole('Almoxarifado')")
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping("/venda")
 public class SalesController {
@@ -52,15 +53,15 @@ public class SalesController {
 
     @Operation(summary = "Lista todas as vendas")
     @GetMapping("/listarVenda")
-    public ResponseEntity<List<Sales>> listarTodasVendas() {
-        List<Sales> salesList = new VendasDAO().listarVendas();
+    public ResponseEntity<List<SalesViewModel>> listarTodasVendas() {
+        List<SalesViewModel> salesList = new VendasDAO().listarVendas();
         return ResponseEntity.ok(salesList);
     }
 
     @Operation(summary = "Lista vendas por funcionário")
     @GetMapping("/{employeeId}")
-    public ResponseEntity<List<Sales>> listarVendasPorFuncionario(@PathVariable int employeeId) {
-        List<Sales> salesList = new VendasDAO().listarVendaPorFuncionario(employeeId);
+    public ResponseEntity<List<SalesViewModel>> listarVendasPorFuncionario(@PathVariable int employeeId) {
+        List<SalesViewModel> salesList = new VendasDAO().listarVendaPorFuncionario(employeeId);
         return ResponseEntity.ok(salesList);
     }
 

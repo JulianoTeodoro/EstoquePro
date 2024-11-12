@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.DTO;
+package EstoquePro.DTO;
 
 public class ClientLoginInputModel {
 	public String Email;

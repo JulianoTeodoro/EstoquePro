@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.models;
+package EstoquePro.models;
 
 public class Stock {
     private int id;

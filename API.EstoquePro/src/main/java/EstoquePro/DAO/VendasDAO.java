@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.DAO;
+package EstoquePro.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
-import estacio.API.EstoquePro.models.Sales;
+import EstoquePro.DTO.SalesViewModel;
+import EstoquePro.models.Sales;
 
 public class VendasDAO {
     public boolean registrarVenda(Sales sale) throws SQLException {
@@ -53,15 +54,16 @@ public class VendasDAO {
         }
     }
     
-    public List<Sales> listarVendas() {
-        List<Sales> salesList = new ArrayList<>();
-        String sql = "SELECT * FROM estoque.sales";
+    public List<SalesViewModel> listarVendas() {
+        List<SalesViewModel> salesList = new ArrayList<>();
+        String sql = "SELECT * FROM estoque.sales SA "
+        		+ "INNER JOIN estoque.stock ST on SA.stock_idproduct = ST.idproduct ";
 
         try (Statement stmt = Context.getConexao().createStatement();
              ResultSet resultSet = stmt.executeQuery(sql)) {
 
             while (resultSet.next()) {
-                Sales sale = new Sales();
+            	SalesViewModel sale = new SalesViewModel();
                 sale.setId(resultSet.getInt("idsale"));
                 sale.setDateSale(resultSet.getDate("date_sale"));
                 sale.setClientId(resultSet.getInt("clients_idclient"));
@@ -70,7 +72,9 @@ public class VendasDAO {
                 sale.setEmployeeCpf(resultSet.getString("employee_cpf_employee"));
                 sale.setProductId(resultSet.getInt("stock_idproduct"));
                 sale.setQuantity(resultSet.getInt("quantity"));
-                sale.setValor(resultSet.getDouble("valortotal"));
+                sale.setValordaVenda(resultSet.getDouble("valortotal"));
+                sale.nomeProduto = resultSet.getString("name_product");
+                sale.valorProduto = resultSet.getDouble("price_unitary");
                 salesList.add(sale);
             }
         } catch (SQLException e) {
@@ -79,15 +83,17 @@ public class VendasDAO {
         return salesList;
     }
 
-    public List<Sales> listarVendaPorFuncionario(int employeeId) {
-        List<Sales> salesList = new ArrayList<>();
-        String sql = "SELECT * FROM estoque.sales WHERE employee_idemployee = ?";
+    public List<SalesViewModel> listarVendaPorFuncionario(int employeeId) {
+        List<SalesViewModel> salesList = new ArrayList<>();
+        String sql = "SELECT * FROM estoque.sales "
+        		+ "INNER JOIN estoque.stock ST on SA.stock_idproduct = ST.idproduct "
+        		+ " WHERE employee_idemployee = ?";
 
         try (PreparedStatement stmt = Context.getConexao().prepareStatement(sql)) {
             stmt.setInt(1, employeeId);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
-                    Sales sale = new Sales();
+                	SalesViewModel sale = new SalesViewModel();
                     sale.setId(resultSet.getInt("idsale"));
                     sale.setDateSale(resultSet.getDate("date_sale"));
                     sale.setClientId(resultSet.getInt("clients_idclient"));
@@ -96,7 +102,9 @@ public class VendasDAO {
                     sale.setEmployeeCpf(resultSet.getString("employee_cpf_employee"));
                     sale.setProductId(resultSet.getInt("stock_idproduct"));
                     sale.setQuantity(resultSet.getInt("quantity"));
-                    sale.setValor(resultSet.getDouble("valortotal"));
+                    sale.setValordaVenda(resultSet.getDouble("valortotal"));
+                    sale.nomeProduto = resultSet.getString("name_product");
+                    sale.valorProduto = resultSet.getDouble("price_unitary");
                     salesList.add(sale);
                 }
             }

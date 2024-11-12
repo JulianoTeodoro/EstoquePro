@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.DAO;
+package EstoquePro.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

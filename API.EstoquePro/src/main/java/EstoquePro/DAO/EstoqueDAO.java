@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.DAO;
+package EstoquePro.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,8 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import estacio.API.EstoquePro.models.Employee;
-import estacio.API.EstoquePro.models.Stock;
+import EstoquePro.models.Employee;
+import EstoquePro.models.Stock;
 
 public class EstoqueDAO {
 	
@@ -36,7 +36,6 @@ public class EstoqueDAO {
 
     		}
     		catch (SQLException e) {
-                // Lança uma exceção em caso de erro.
                 throw new RuntimeException(e);
             }
     		

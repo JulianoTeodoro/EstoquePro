@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.models;
+package EstoquePro.models;
 
 import java.util.Date;
 

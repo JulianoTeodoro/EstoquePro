@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.DAO;
+package EstoquePro.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import estacio.API.EstoquePro.models.Cliente;
-import estacio.API.EstoquePro.models.Employee;
+import EstoquePro.models.Cliente;
+import EstoquePro.models.Employee;
 
 public class UsuarioDAO {
 	public List<Employee> GetFuncionarios() {

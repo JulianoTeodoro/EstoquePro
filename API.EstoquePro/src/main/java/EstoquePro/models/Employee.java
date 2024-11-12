@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.models;
+package EstoquePro.models;
 
 public class Employee {
 	
@@ -15,6 +15,9 @@ public class Employee {
 	public Employee() {
 	}
 
+	public Employee(String cpf_employee) {
+		Cpf = cpf_employee;
+	}
 	public int IdEmployee;
     public String Cpf;
 	public String Nome;

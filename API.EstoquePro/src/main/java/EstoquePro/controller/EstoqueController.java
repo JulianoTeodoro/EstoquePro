@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.controller;
+package EstoquePro.controller;
 
 import java.util.List;
 
@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import estacio.API.EstoquePro.DAO.EstoqueDAO;
-import estacio.API.EstoquePro.Utils.JwtUtil;
-import estacio.API.EstoquePro.models.Stock;
+import EstoquePro.DAO.EstoqueDAO;
+import EstoquePro.Utils.JwtUtil;
+import EstoquePro.models.Stock;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
-//@PreAuthorize("hasRole('Almoxarifado')")
+@PreAuthorize("hasRole('Almoxarifado')")
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping("/estoque")
 public class EstoqueController {

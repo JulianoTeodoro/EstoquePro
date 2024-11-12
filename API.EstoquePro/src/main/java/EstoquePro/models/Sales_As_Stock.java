@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.models;
+package EstoquePro.models;
 
 public class Sales_As_Stock {
    public int ProductId;

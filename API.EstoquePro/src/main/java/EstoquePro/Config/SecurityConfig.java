@@ -1,4 +1,4 @@
-package estacio.API.EstoquePro.Config;
+package EstoquePro.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +20,7 @@ public class SecurityConfig {
         http
             .csrf().disable()
             .authorizeRequests()
-            .requestMatchers("/employees/**", "/cliente/**").permitAll()
-            .requestMatchers("/estoque/**", "/venda/**").hasAuthority("Almoxarifado")
+            .requestMatchers("/employees/**", "/cliente/**", "/estoque/**", "/venda/**").permitAll()
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
