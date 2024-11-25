@@ -59,9 +59,9 @@ public class SalesController {
     }
 
     @Operation(summary = "Lista vendas por funcionário")
-    @GetMapping("/{employeeId}")
-    public ResponseEntity<List<SalesViewModel>> listarVendasPorFuncionario(@PathVariable int employeeId) {
-        List<SalesViewModel> salesList = new VendasDAO().listarVendaPorFuncionario(employeeId);
+    @GetMapping("/{cpf}")
+    public ResponseEntity<List<SalesViewModel>> listarVendasPorFuncionario(@PathVariable String cpf) {
+        List<SalesViewModel> salesList = new VendasDAO().listarVendaPorFuncionario(cpf);
         return ResponseEntity.ok(salesList);
     }
 

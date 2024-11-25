@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import EstoquePro.DAO.*;
 import EstoquePro.DTO.ClientLoginInputModel;
+import EstoquePro.DTO.EmployeeLoginInputModel;
 import EstoquePro.Utils.JwtUtil;
 import EstoquePro.models.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +37,7 @@ public class UsuarioController {
 	
     @Operation(summary = "Realiza o login do funcionário")
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody ClientLoginInputModel login) {
+    public ResponseEntity<?> login(@RequestBody EmployeeLoginInputModel login) {
         Employee employee = new UsuarioDAO().loginEmployee(login.Cpf, login.Senha);
 
         if (employee != null) {

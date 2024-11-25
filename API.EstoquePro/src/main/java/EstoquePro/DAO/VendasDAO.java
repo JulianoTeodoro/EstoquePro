@@ -44,7 +44,6 @@ public class VendasDAO {
                 }
             }
 
-            Context.getConexao().commit();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,14 +82,14 @@ public class VendasDAO {
         return salesList;
     }
 
-    public List<SalesViewModel> listarVendaPorFuncionario(int employeeId) {
+    public List<SalesViewModel> listarVendaPorFuncionario(String cpf) {
         List<SalesViewModel> salesList = new ArrayList<>();
-        String sql = "SELECT * FROM estoque.sales "
-        		+ "INNER JOIN estoque.stock ST on SA.stock_idproduct = ST.idproduct "
-        		+ " WHERE employee_idemployee = ?";
+        String sql = "SELECT * FROM estoque.sales SA "
+        		+ " INNER JOIN estoque.stock ST on SA.stock_idproduct = ST.idproduct "
+        		+ " WHERE employee_cpf_employee = ?";
 
         try (PreparedStatement stmt = Context.getConexao().prepareStatement(sql)) {
-            stmt.setInt(1, employeeId);
+            stmt.setString(1, cpf);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
                 	SalesViewModel sale = new SalesViewModel();
@@ -100,7 +99,7 @@ public class VendasDAO {
                     sale.setClientCpf(resultSet.getString("clients_cpf"));
                     sale.setEmployeeId(resultSet.getInt("employee_idemployee"));
                     sale.setEmployeeCpf(resultSet.getString("employee_cpf_employee"));
-                    sale.setProductId(resultSet.getInt("stock_idproduct"));
+                    sale.setProductId(resultSet.getInt("idproduct"));
                     sale.setQuantity(resultSet.getInt("quantity"));
                     sale.setValordaVenda(resultSet.getDouble("valortotal"));
                     sale.nomeProduto = resultSet.getString("name_product");
